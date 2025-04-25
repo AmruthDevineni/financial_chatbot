@@ -14,4 +14,4 @@ langchain-ollama
 huggingface_hub
 sentence-transformers
 faiss-cpu
-
+sec-edgar-api
