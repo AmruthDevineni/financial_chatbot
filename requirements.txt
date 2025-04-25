@@ -1,19 +1,17 @@
-# Core dependencies
+# Core packages
 streamlit
 pandas
 numpy
 requests
 plotly
-prettytable
 beautifulsoup4
+prettytable
 lxml
-tqdm
-python-dotenv
 
-# LangChain and LLM tools
-langchain>=0.1.13
-langchain-community>=0.0.33
-langchain-core>=0.1.29
+# LangChain + LLM
+langchain
+langchain-community
+langchain-core
 langchainhub
 langchain-ollama
 huggingface_hub
@@ -22,9 +20,5 @@ sentence-transformers
 # Vector store
 faiss-cpu
 
-# SEC EDGAR API client
+# SEC tools (streamlit-safe)
 sec-edgar-downloader
-sec-edgar-api @ git+https://github.com/mahenrique94/sec-edgar-api.git
-
-# Optional: for compatibility with some environments
-certifi
