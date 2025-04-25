@@ -304,32 +304,21 @@ def print_pretty_table_ignore_empty(table):
     return pt
 
 def fetch_recent_filing_meta(cik: str) -> Dict:
-    """Fetch metadata for the most recent 10-K filing"""
-    client = EdgarClient(user_agent="FinancialChatbot (your.email@example.com)")
-    subs = client.get_submissions(cik=cik)
-    recent = subs["filings"]["recent"]
-    
-    filing_info = None
-    for form, acc, doc, date in zip(
-        recent["form"],
-        recent["accessionNumber"],
-        recent["primaryDocument"],
-        recent["filingDate"]
-    ):
-        if form == "10-K":
-            filing_info = {
-                "accession": acc, 
-                "primary_doc": doc, 
-                "filing_date": date,
-                "form": form
-            }
-            break
-    
-    if not filing_info:
-        raise ValueError(f"No 10-K found for CIK {cik}")
-    
-    return filing_info
+    downloader = Downloader("your@email.com")  # Required by SEC
+    filings = downloader.get("10-K", ticker_or_cik, amount=1)
 
+    if not filings:
+        raise ValueError(f"No 10-K filings found for {ticker_or_cik}")
+
+    filing = filings[0]
+
+    return {
+        "accession": filing.accession_number,
+        "filing_date": filing.filing_date,
+        "primary_doc": filing.primary_document,
+        "filepath": filing.local_filename,
+        "form": "10-K"
+    }
 def download_filing_html(cik: str, accession: str, primary_doc: str) -> (str, str):
     """Download a filing's HTML and return (html, base_url)"""
     cik_int = str(int(cik))
