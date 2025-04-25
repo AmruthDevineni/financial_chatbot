@@ -1,15 +1,6 @@
 import os
 import subprocess
 import sys
-
-try:
-    from sec_edgar_api import EdgarClient
-except ImportError:
-    subprocess.check_call([
-        sys.executable, "-m", "pip", "install",
-        "git+https://github.com/mahenrique94/sec-edgar-api.git@main"
-    ])
-    from sec_edgar_api import EdgarClient
 import re
 import requests
 import warnings
@@ -22,7 +13,6 @@ from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
-from sec_edgar_api import EdgarClient
 from prettytable import PrettyTable
 import json
 import traceback
@@ -37,7 +27,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
 from langchain_community.llms import HuggingFaceHub
-
+from sec_edgar_api import EdgarClient
 # Set the environment variable to allow deserialization
 os.environ["STREAMLIT_ALLOW_DANGEROUS_DESERIALIZATION"] = "true"
 
