@@ -20,5 +20,5 @@ sentence-transformers
 # Vector store
 faiss-cpu
 
-# SEC tools (streamlit-safe)
+# SEC tools
 sec-edgar-downloader
