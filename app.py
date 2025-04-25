@@ -1,5 +1,15 @@
 import os
+import subprocess
 import sys
+
+try:
+    from sec_edgar_api import EdgarClient
+except ImportError:
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install",
+        "git+https://github.com/mahenrique94/sec-edgar-api.git@main"
+    ])
+    from sec_edgar_api import EdgarClient
 import re
 import requests
 import warnings
