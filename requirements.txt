@@ -1,11 +1,30 @@
-langchain>=0.1.6
+# Core dependencies
 streamlit
-sentence-transformers
-huggingface-hub
-faiss-cpu
-beautifulsoup4
 pandas
 numpy
+requests
 plotly
 prettytable
-sec-edgar-api
+beautifulsoup4
+lxml
+tqdm
+python-dotenv
+
+# LangChain and LLM tools
+langchain>=0.1.13
+langchain-community>=0.0.33
+langchain-core>=0.1.29
+langchainhub
+langchain-ollama
+huggingface_hub
+sentence-transformers
+
+# Vector store
+faiss-cpu
+
+# SEC EDGAR API client
+sec-edgar-downloader
+sec-edgar-api @ git+https://github.com/mahenrique94/sec-edgar-api.git
+
+# Optional: for compatibility with some environments
+certifi
