@@ -1,4 +1,3 @@
-# Core packages
 streamlit
 pandas
 numpy
@@ -7,8 +6,6 @@ plotly
 beautifulsoup4
 prettytable
 lxml
-
-# LangChain + LLM
 langchain
 langchain-community
 langchain-core
@@ -16,9 +13,5 @@ langchainhub
 langchain-ollama
 huggingface_hub
 sentence-transformers
-
-# Vector store
 faiss-cpu
-
-# SEC tools
 sec-edgar-downloader
