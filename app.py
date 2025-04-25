@@ -12,7 +12,7 @@ from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
-from sec_edgar_api import EdgarClient
+from sec_edgar_downloader import Downloader
 from prettytable import PrettyTable
 import json
 import traceback
