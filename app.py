@@ -20,7 +20,7 @@ import traceback
 # For LangChain components
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS  # Updated import
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import PromptTemplate
