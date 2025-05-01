@@ -1,71 +1,133 @@
 # financial_chatbot
 
-Financial Chatbot
-A Python-based chatbot designed to assist users with financial inquiries and stock market information.​
-GitHub
+# Financial Chatbot using SEC Filings, LLMs, and Pinecone
 
-Features
-Provides information on various financial topics.
+This is a financial chatbot built using **LangChain**, **FinBERT embeddings**, **SEC EDGAR filings**, and **Streamlit**. The app allows users to ask detailed questions about companies using 10-K reports, and receive answers grounded in real documents with source traceability.
 
-Utilizes data from the financial_data and indexes directories.
+---
 
-Built with Python, leveraging libraries specified in requirements.txt.​
-GitHub
-+1
-GitHub
-+1
-GitHub
-+2
-GitHub
-+2
-GitHub
-+2
+## Key Features
 
-Installation
-Clone the repository:​
-GitHub
+- Ingests SEC 10-K filings via Edgar API
+-  Chunks and embeds documents using FinBERT
+-  Stores embeddings in Pinecone vector DB
+-  Answers financial questions using Ollama's LLaMA-2 model
+-  Cites original sources in each response
+-  Streamlit-based UI for easy use
 
-bash
-Copy
-Edit
+---
+
+## Project Structure
+financial_chatbot 
+  ├── app.py 
+# Streamlit UI entrypoint 
+  ├── chunk.py 
+# Sentence-level chunking with metadata
+  ├── finbert_embed.py 
+# FinBERT-based embedding pipeline
+  ├── llama_qa.py 
+# Query-answer pipeline using Ollama + Pinecone 
+  ├── edgar_client.py
+# SEC EDGAR integration to fetch 10-Ks 
+  ├── pinecone_utils.py 
+# Pinecone setup and indexing logic 
+  ├── constants.py
+# Configuration and static variables
+  ├── requirements.txt
+# All dependencies 
+  └── .env
+
+
+---
+
+## Setup Instructions
+
+### 1. Clone the Repo
+
+```bash
 git clone https://github.com/AmruthDevineni/financial_chatbot.git
 cd financial_chatbot
-Install the required dependencies:​
-
-bash
-Copy
-Edit
 pip install -r requirements.txt
-Usage
-Run the chatbot application using the following command:​
-GitHub
-+2
-GitHub
-+2
-GitHub
-+2
 
-bash
-Copy
-Edit
-python app.py
-This will start the chatbot, allowing you to interact and ask financial-related questions.​
-GitHub
 
-Project Structure
-app.py: Main application file to run the chatbot.
+PINECONE_API_KEY=your_pinecone_key
+PINECONE_ENV=your_pinecone_region
+OLLAMA_BASE_URL=http://localhost:11434
+SEC_API_KEY=your_sec_api_key_if_required
 
-alpha_data.py: Handles data retrieval and processing.
 
-financial_data/: Contains financial datasets used by the chatbot.
+ollama run llama2
+streamlit run app.py
+```
 
-indexes/: Includes index-related data for reference.
+## 🧠 How It Works
 
-requirements.txt: Lists all Python dependencies required for the project.​
-GitHub
-+3
-GitHub
-+3
-GitHub
-+3
+### `chunk.py`
+- Splits SEC filings into **clean, sentence-based chunks**.
+- Adds metadata (section, line number) for traceability.
+
+### `finbert_embed.py`
+- Uses FinBERT from HuggingFace (`yiyanghkust/finbert-tone`) to embed each chunk.
+- Embeddings are sent to Pinecone via `pinecone_utils.py`.
+
+### `llama_qa.py`
+- Given a user question:
+  1. Query is embedded.
+  2. Top-k similar chunks from Pinecone are retrieved.
+  3. Prompt is built: question + retrieved context.
+  4. Sent to LLaMA via Ollama API for grounded response.
+  5. Output includes answer + citations.
+
+### `app.py`
+- Provides **Streamlit interface** with:
+  - Input box for financial queries
+  - Dropdown to select company/filing
+  - Display of answer and original source
+  - Optional sidebar with metadata
+
+---
+
+## 💡 Example Queries
+
+- “What was Apple's net income in 2021?”
+- “How did Tesla describe supply chain risks?”
+- “Break down Microsoft's revenue streams last fiscal year.”
+
+---
+
+## 📦 Dependencies
+
+Major packages:
+
+- `langchain`
+- `transformers`
+- `streamlit`
+- `pinecone-client`
+- `openai` or `ollama`
+- `sec-edgar-downloader` or custom `edgar_client.py`
+
+Install them all via:
+
+```bash
+pip install -r requirements.txt
+```
+## 📌 Future Improvements
+
+- Upload user PDFs of 10-Ks directly
+- Add charts for revenue/net income over time
+- Integrate evaluation tools for answer quality
+- Expand to multi-company comparisons
+
+---
+
+## 🙋‍♂️ Acknowledgements
+
+- FinBERT by ProsusAI
+- [LangChain](https://www.langchain.com/)
+- [Pinecone](https://www.pinecone.io/)
+- [SEC EDGAR](https://www.sec.gov/edgar.shtml)
+- [Ollama](https://ollama.com)
+
+
+
 
